@@ -1,0 +1,22 @@
+<div class="login-container">
+  <form (submit)="login()" class="login-form">
+    <h2>Login</h2>
+    <label>
+      Username:
+      <input [(ngModel)]="pangolin.username" name="username" required />
+    </label>
+    <label>
+      Password:
+      <input
+        [(ngModel)]="pangolin.password"
+        name="password"
+        type="password"
+        required
+      />
+    </label>
+    <div class="button-class">
+      <button type="submit" class="login">Login</button>
+      <a href="/register" class="register">Register</a>
+    </div>
+  </form>
+</div>

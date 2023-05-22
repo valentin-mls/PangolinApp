@@ -1,0 +1,32 @@
+<div class="container">
+  <div class="card">
+    <h2>Profile</h2>
+    <p><strong>Username:</strong> {{ pangolin.username }}</p>
+    <p><strong>Role:</strong> {{ pangolin.role }}</p>
+  </div>
+  <div class="card">
+    <h3>Friends</h3>
+    <ul>
+      <li *ngFor="let friend of pangolin.friends">{{ friend.username }}</li>
+    </ul>
+  </div>
+  <form (submit)="updateRole()" class="card">
+    <h3>Update Role</h3>
+    <label>
+      <strong>Role:</strong>
+      <select [(ngModel)]="pangolin.role" name="role" class="select-role">
+        <option value="Guerrier">Guerrier</option>
+        <option value="Alchimiste">Alchimiste</option>
+        <option value="Sorcier">Sorcier</option>
+        <option value="Espions">Espions</option>
+        <option value="Enchanteur">Enchanteur</option>
+      </select>
+    </label>
+    <button type="submit" class="btn update-role">Update Role</button>
+  </form>
+  <div class="button-group">
+    <a href="/profile" class="btn">Profile</a>
+    <a href="/friends" class="btn">Friends</a>
+    <a href="/logout" class="btn btn-danger">Logout</a>
+  </div>
+</div>

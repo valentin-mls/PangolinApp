@@ -6,6 +6,33 @@
   </div>
   <div class="card">
     <h3>Friends</h3>
+    <form (submit)="register()" class="login-form">
+      <label>
+        Username:
+        <input
+          [(ngModel)]="newFriend.username"
+          name="username"
+          placeholder="Enter friend's username"
+          required
+        />
+      </label>
+      <label>
+        Password:
+        <input
+          [(ngModel)]="newFriend.password"
+          name="password"
+          type="password"
+          placeholder="Enter friend's password"
+          required
+        />
+      </label>
+      <div class="button-class">
+        <button type="submit" href="/profile" class="register">
+          add friend
+        </button>
+      </div>
+    </form>
+
     <ul>
       <li *ngFor="let friend of pangolin.friends">{{ friend.username }}</li>
     </ul>

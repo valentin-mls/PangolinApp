@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { PangolinService } from '../pangolin.service';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 
 @Component({
   selector: 'app-profile',
@@ -8,8 +10,12 @@ import { PangolinService } from '../pangolin.service';
 })
 export class ProfileComponent implements OnInit {
   pangolin: any = {};
+  newFriend: any = {}; // New object for the form
 
-  constructor(private pangolinService: PangolinService) {}
+  constructor(
+    private pangolinService: PangolinService,
+    private router: Router
+  ) {}
 
   ngOnInit(): void {
     const id = localStorage.getItem('id');
@@ -27,6 +33,31 @@ export class ProfileComponent implements OnInit {
     } else {
       console.log('ID not found');
     }
+  }
+
+  register(): void {
+    this.pangolinService.register(this.newFriend).subscribe(
+      (response: any) => {
+        const newUserId = response._id;
+        const currentUserId = localStorage.getItem('id');
+        if (currentUserId) {
+          this.pangolinService.addFriend(currentUserId, newUserId).subscribe(
+            (response) => {
+              console.log(response);
+              this.router
+                .navigateByUrl('/', { skipLocationChange: true })
+                .then(() => {
+                  this.router.navigate(['/profile']);
+                });
+            },
+            (error) => console.error(error)
+          );
+        } else {
+          console.log('erreur');
+        }
+      },
+      (error) => console.error(error)
+    );
   }
 
   updateRole(): void {

@@ -5,19 +5,24 @@ const router = express.Router();
 const Pangolin = require("../models/pangolin");
 
 router.post("/register", async (req, res) => {
-  let pangolin = new Pangolin({
-    username: req.body.username,
-    password: req.body.password,
-    role: req.body.role,
-  });
+  try {
+    let pangolin = new Pangolin({
+      username: req.body.username,
+      password: req.body.password,
+      role: req.body.role,
+    });
 
-  console.log("Received data:", req.body);
+    console.log("Received data:", req.body);
 
-  pangolin = await pangolin.save();
+    pangolin = await pangolin.save();
 
-  console.log("Saved pangolin:", pangolin);
+    console.log("Saved pangolin:", pangolin);
 
-  res.send(pangolin);
+    res.send(pangolin);
+  } catch (error) {
+    console.error("Error while saving pangolin:", error);
+    res.status(500).send({ message: error.message });
+  }
 });
 
 router.post("/login", async (req, res) => {
